@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja MTA - Itens Exclusivos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        preto: '#000000',
+                        laranja: '#FF7A00',
+                        laranjaEscuro: '#E66A00',
+                        cinzaEscuro: '#1A1A1A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .texto-sombra {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            }
+            .aba-ativa {
+                background-color: #FF7A00;
+                color: #000000;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body class="bg-preto text-white font-sans min-h-screen">
+    <!-- Cabeçalho -->
+    <header class="bg-cinzaEscuro border-b-2 border-laranja py-4 px-6 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-4 md:mb-0">
+                <i class="fa fa-shopping-cart text-laranja text-3xl mr-3"></i>
+                <h1 class="text-[clamp(1.5rem,3vw,2.2rem)] font-bold texto-sombra">
+                    <span class="text-laranja">LOJA</span><span class="text-white"> MTA</span>
+                </h1>
+            </div>
+            <nav class="w-full md:w-auto overflow-x-auto scrollbar-hide">
+                <ul class="flex flex-row gap-1 md:gap-2 whitespace-nowrap">
+                    <li><a href="#veiculos" class="aba-ativa px-4 py-2 rounded-t-lg font-medium transition-all">Veículos</a></li>
+                    <li><a href="#skins" class="px-4 py-2 rounded-t-lg font-medium hover:bg-laranja/20 transition-all">Skins</a></li>
+                    <li><a href="#casas" class="px-4 py-2 rounded-t-lg font-medium hover:bg-laranja/20 transition-all">Casas</a></li>
+                    <li><a href="#favelas" class="px-4 py-2 rounded-t-lg font-medium hover:bg-laranja/20 transition-all">Favelas</a></li>
+                    <li><a href="#vips" class="px-4 py-2 rounded-t-lg font-medium hover:bg-laranja/20 transition-all">VIPs</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner Principal -->
+    <section class="relative h-[40vh] md:h-[50vh] bg-cinzaEscuro overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-preto/90 to-laranja/30 z-10"></div>
+        <img src="https://picsum.photos/id/1019/1920/1080" alt="MTA Mundo Aberto" class="w-full h-full object-cover">
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
+            <h2 class="text-[clamp(1.8rem,5vw,3.5rem)] font-bold texto-sombra mb-3">ITENS EXCLUSIVOS PARA O SEU SERVIDOR</h2>
+            <p class="text-[clamp(1rem,2vw,1.3rem)] text-gray-200 max-w-2xl mb-6">Os melhores veículos, skins, propriedades e benefícios para sua experiência no MTA</p>
+            <a href="#veiculos" class="bg-laranja hover:bg-laranjaEscuro text-white font-bold py-3 px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                VER CATÁLOGO
+            </a>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-10">
+        <!-- Aba Veículos -->
+        <section id="veiculos" class="mb-20">
+            <div class="flex items-center mb-8">
+                <i class="fa fa-car text-laranja text-2xl mr-3"></i>
+                <h2 class="text-3xl font-bold border-b-2 border-laranja pb-2">Veículos</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1072/400/300" alt="Carro Esportivo" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Carro Esportivo X1</h3>
+                        <p class="text-gray-400 text-sm mb-3">Velocidade máxima, design exclusivo e modificação completa.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-laranja font-bold text-lg">R$ 50,00</span>
+                            <button class="bg-laranja hover:bg-laranjaEscuro px-4 py-2 rounded text-sm font-medium transition-all">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1071/400/300" alt="Moto Custom" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Moto Custom 300</h3>
+                        <p class="text-gray-400 text-sm mb-3">Agilidade nas ruas, visual diferenciado e desempenho alto.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-laranja font-bold text-lg">R$ 30,00</span>
+                            <button class="bg-laranja hover:bg-laranjaEscuro px-4 py-2 rounded text-sm font-medium transition-all">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1073/400/300" alt="Caminhão Reboque" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Caminhão Reboque</h3>
+                        <p class="text-gray-400 text-sm mb-3">Ideal para trabalhos, alta capacidade de carga e resistência.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-laranja font-bold text-lg">R$ 70,00</span>
+                            <button class="bg-laranja hover:bg-laranjaEscuro px-4 py-2 rounded text-sm font-medium transition-all">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1074/400/300" alt="Helicóptero Leve" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Helicóptero Leve</h3>
+                        <p class="text-gray-400 text-sm mb-3">Mobilidade aérea, acesso rápido a qualquer ponto do mapa.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-laranja font-bold text-lg">R$ 120,00</span>
+                            <button class="bg-laranja hover:bg-laranjaEscuro px-4 py-2 rounded text-sm font-medium transition-all">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Aba Skins -->
+        <section id="skins" class="mb-20">
+            <div class="flex items-center mb-8">
+                <i class="fa fa-user-circle text-laranja text-2xl mr-3"></i>
+                <h2 class="text-3xl font-bold border-b-2 border-laranja pb-2">Skins</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1062/400/300" alt="Skin Policial" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Policial Elite</h3>
+                        <p class="text-gray-400 text-sm mb-3">Uniforme oficial, equipamentos e aparência profissional.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-laranja font-bold text-lg">R$ 25,00</span>
+                            <button class="bg-laranja hover:bg-laranjaEscuro px-4 py-2 rounded text-sm font-medium transition-all">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1063/400/300" alt="Skin Gangue" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Membro de Facção</h3>
+                        <p class="text-gray-400 text-sm mb-3">Visual exclusivo, roupas temáticas e identificação de grupo.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-laranja font-bold text-lg">R$ 20,00</span>
+                            <button class="bg-laranja hover:bg-laranjaEscuro px-4 py-2 rounded text-sm font-medium transition-all">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1064/400/300" alt="Skin Médico" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Médico Resgate</h3>
+                        <p class="text-gray-400 text-sm mb-3">Traje hospitalar, acessórios e aparência de emergência.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-laranja font-bold text-lg">R$ 22,00</span>
+                            <button class="bg-laranja hover:bg-laranjaEscuro px-4 py-2 rounded text-sm font-medium transition-all">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1065/400/300" alt="Skin Civil" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Civil Moderno</h3>
+                        <p class="text-gray-400 text-sm mb-3">Roupas variadas, estilo urbano e personalização completa.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-laranja font-bold text-lg">R$ 15,00</span>
+                            <button class="bg-laranja hover:bg-laranjaEscuro px-4 py-2 rounded text-sm font-medium transition-all">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Aba Casas -->
+        <section id="casas" class="mb-20">
+            <div class="flex items-center mb-8">
+                <i class="fa fa-home text-laranja text-2xl mr-3"></i>
+                <h2 class="text-3xl font-bold border-b-2 border-laranja pb-2">Casas</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1076/600/400" alt="Casa Pequena" class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Residência Básica</h3>
+                        <p class="text-gray-400 text-sm mb-3">1 quarto, garagem pequena, localizada em bairro tranquilo.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-laranja font-bold text-lg">R$ 80,00</span>
+                            <button class="bg-laranja hover:bg-laranjaEscuro px-4 py-2 rounded text-sm font-medium transition-all">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cinzaEscuro rounded-lg overflow-hidden shadow-lg hover:shadow-laranja/20 hover:shadow-2xl transition-all group">
+                    <img src="https://picsum.photos/id/1077/600/
