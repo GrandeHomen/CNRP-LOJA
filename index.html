@@ -1,1 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cidade Nova Store</title>
 
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#0d0d0d;
+      color:white;
+    }
+
+    /* MENU */
+    header{
+      width:100%;
+      background:#111;
+      border-bottom:3px solid #ff7b00;
+      position:sticky;
+      top:0;
+      z-index:999;
+    }
+
+    .menu{
+      max-width:1400px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:20px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:bold;
+      color:#ff7b00;
+      text-transform:uppercase;
+      letter-spacing:2px;
+    }
+
+    .nav{
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .nav button{
+      background:#1a1a1a;
+      color:white;
+      border:1px solid #ff7b00;
+      padding:10px 18px;
+      border-radius:8px;
+      cursor:pointer;
+      transition:0.3s;
+      font-weight:bold;
+    }
+
+    .nav button:hover,
+    .nav button.active{
+      background:#ff7b00;
+      color:black;
+      transform:scale(1.05);
+    }
+
+    /* HERO */
+    .hero{
+      height:300px;
+      background:linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)),
+      url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:20px;
+    }
+
+    .hero h1{
+      font-size:55px;
+      color:#ff7b00;
+      text-shadow:0 0 15px rgba(255,123,0,0.8);
+    }
+
+    .hero p{
+      margin-top:10px;
+      font-size:20px;
+      color:#ddd;
+    }
+
+    /* PRODUTOS */
+    .container{
+      max-width:1400px;
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    .products{
+      display:none;
+      grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .products.active{
+      display:grid;
+    }
+
+    .card{
+      background:#151515;
+      border:1px solid #2b2b2b;
+      border-radius:15px;
+      overflow:hidden;
+      transition:0.3s;
+      box-shadow:0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      border-color:#ff7b00;
+      box-shadow:0 0 20px rgba(255,123,0,0.4);
+    }
+
+    .card img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+    }
+
+    .card-content{
+      padding:20px;
+    }
+
+    .card h3{
+      color:#ff7b00;
+      margin-bottom:10px;
+      font-size:22px;
+    }
+
+    .card p{
+      color:#ccc;
+      margin-bottom:15px;
+      font-size:15px;
+    }
+
+    .price{
+      font-size:22px;
+      color:#fff;
+      margin-bottom:15px;
+      font-weight:bold;
+    }
+
+    .buy-btn{
+      display:block;
+      width:100%;
+      text-align:center;
+      background:#ff7b00;
+      color:black;
+      padding:12px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    .buy-btn:hover{
+      background:#ffa64d;
+    }
+
+    footer{
+      text-align:center;
+      padding:25px;
+      background:#111;
+      border-top:2px solid #ff7b00;
+      color:#999;
+      margin-top:40px;
+    }
+
+    @media(max-width:700px){
+      .hero h1{
+        font-size:38px;
+      }
+
+      .menu{
+        flex-direction:column;
+        gap:15px;
+      }
+
+      .nav{
+        justify-content:center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="menu">
+      <div class="logo">Cidade Nova Store</div>
+
+      <div class="nav">
+        <button class="tab-btn active" onclick="showTab('veiculos', this)">Veículos</button>
+        <button class="tab-btn" onclick="showTab('skins', this)">Skins</button>
+        <button class="tab-btn" onclick="showTab('casas', this)">Casas</button>
+        <button class="tab-btn" onclick="showTab('vips', this)">VIPs</button>
+        <button class="tab-btn" onclick="showTab('favelas', this)">Favelas</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>LOJA OFICIAL</h1>
+      <p>Servidor FiveM • Itens Exclusivos • Melhor Experiência RP</p>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- VEICULOS -->
+    <div class="products active" id="veiculos">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>Nissan GTR</h3>
+          <p>Veículo esportivo exclusivo.</p>
+          <div class="price">R$ 39,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>Lamborghini</h3>
+          <p>Super carro para sua garagem.</p>
+          <div class="price">R$ 59,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>Mustang GT</h3>
+          <p>Potência e estilo no RP.</p>
+          <div class="price">R$ 49,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>BMW M4</h3>
+          <p>Luxo e velocidade.</p>
+          <div class="price">R$ 44,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>Porsche 911</h3>
+          <p>Esportivo premium.</p>
+          <div class="price">R$ 69,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SKINS -->
+    <div class="products" id="skins">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>Skin Polícia</h3>
+          <p>Visual completo policial.</p>
+          <div class="price">R$ 14,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>Skin Favela</h3>
+          <p>Estilo cria RP.</p>
+          <div class="price">R$ 12,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>Skin Feminina</h3>
+          <p>Skin exclusiva feminina.</p>
+          <div class="price">R$ 16,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>Skin Mafia</h3>
+          <p>Visual de organização.</p>
+          <div class="price">R$ 19,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=1000&auto=format&fit=crop">
+        <div class="card-content">
+          <h3>Skin Luxo</h3>
+          <p>Estilo premium RP.</p>
+          <div class="price">R$ 24,90</div>
+          <a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CASAS -->
+    <div class="products" id="casas">
+      <div class="card"><img src="https://picsum.photos/500/300?1"><div class="card-content"><h3>Casa Luxo</h3><p>Casa premium no centro.</p><div class="price">R$ 89,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?2"><div class="card-content"><h3>Mansão</h3><p>Mansão exclusiva.</p><div class="price">R$ 149,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?3"><div class="card-content"><h3>Casa Praia</h3><p>Vista para o mar.</p><div class="price">R$ 99,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?4"><div class="card-content"><h3>Casa Favela</h3><p>Ideal para facção.</p><div class="price">R$ 49,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?5"><div class="card-content"><h3>Apartamento</h3><p>Luxo no RP.</p><div class="price">R$ 74,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+    </div>
+
+    <!-- VIPS -->
+    <div class="products" id="vips">
+      <div class="card"><img src="https://picsum.photos/500/300?6"><div class="card-content"><h3>VIP Bronze</h3><p>Benefícios básicos.</p><div class="price">R$ 19,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?7"><div class="card-content"><h3>VIP Prata</h3><p>Mais vantagens.</p><div class="price">R$ 39,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?8"><div class="card-content"><h3>VIP Ouro</h3><p>Benefícios avançados.</p><div class="price">R$ 59,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?9"><div class="card-content"><h3>VIP Diamante</h3><p>Plano premium.</p><div class="price">R$ 89,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?10"><div class="card-content"><h3>VIP Black</h3><p>O melhor do servidor.</p><div class="price">R$ 129,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+    </div>
+
+    <!-- FAVELAS -->
+    <div class="products" id="favelas">
+      <div class="card"><img src="https://picsum.photos/500/300?11"><div class="card-content"><h3>Favela Norte</h3><p>Domine territórios.</p><div class="price">R$ 199,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?12"><div class="card-content"><h3>Favela Sul</h3><p>Base de facção.</p><div class="price">R$ 179,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?13"><div class="card-content"><h3>Complexo RP</h3><p>Área exclusiva.</p><div class="price">R$ 249,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?14"><div class="card-content"><h3>Favela Elite</h3><p>Controle completo.</p><div class="price">R$ 299,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+
+      <div class="card"><img src="https://picsum.photos/500/300?15"><div class="card-content"><h3>Comunidade RP</h3><p>Perfeita para facções.</p><div class="price">R$ 159,90</div><a href="https://youtube.com" target="_blank" class="buy-btn">Comprar</a></div></div>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 Cidade Nova Store - Todos os direitos reservados.
+  </footer>
+
+  <script>
+    function showTab(tabId, button){
+
+      const tabs = document.querySelectorAll('.products');
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      document.getElementById(tabId).classList.add('active');
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      button.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
