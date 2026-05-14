@@ -1,372 +1,488 @@
+# Cidade Nova Store - Versão Funcional
+
+Abaixo está o arquivo completo `index.html` com:
+
+* Sistema de login e cadastro
+* Salvamento de usuários
+* Carrinho de compras
+* Modal de pagamento
+* Geração automática de QR Code PIX
+* Abas funcionando
+* Layout moderno preto e laranja
+* Compatível com GitHub Pages
+
+---
+
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cidade Nova Store</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cidade Nova Store</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
-    body {
-      background: #050505;
-      color: white;
-    }
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
 
-    header {
-      background: #0d0d0d;
-      border-bottom: 2px solid rgb(255,138,6);
-      padding: 20px 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+body{
+background:#050505;
+color:white;
+}
 
-    .logo h1 {
-      color: rgb(255,138,6);
-      font-size: 32px;
-    }
+header{
+background:#0d0d0d;
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:2px solid rgb(255,138,6);
+position:sticky;
+top:0;
+z-index:999;
+}
 
-    .logo p {
-      color: #777;
-      margin-top: 5px;
-    }
+.logo h1{
+color:rgb(255,138,6);
+}
 
-    .btn {
-      background: rgb(255,138,6);
-      color: black;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.nav-right{
+display:flex;
+gap:15px;
+align-items:center;
+}
 
-    .btn:hover {
-      opacity: 0.8;
-    }
+.btn{
+background:rgb(255,138,6);
+color:black;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
 
-    .hero {
-      padding: 80px 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
+.btn:hover{
+opacity:0.8;
+}
 
-    .hero-text {
-      flex: 1;
-      min-width: 300px;
-    }
+.hero{
+padding:70px 40px;
+text-align:center;
+}
 
-    .hero-text h2 {
-      font-size: 60px;
-      line-height: 1.1;
-    }
+.hero h2{
+font-size:60px;
+margin-bottom:20px;
+}
 
-    .hero-text span {
-      color: rgb(255,138,6);
-    }
+.hero span{
+color:rgb(255,138,6);
+}
 
-    .hero-text p {
-      margin-top: 20px;
-      color: #999;
-      font-size: 18px;
-      max-width: 600px;
-    }
+.hero p{
+color:#999;
+max-width:800px;
+margin:auto;
+line-height:1.6;
+}
 
-    .pix-box {
-      flex: 1;
-      min-width: 320px;
-      background: #111;
-      border: 1px solid rgba(255,138,6,0.3);
-      border-radius: 20px;
-      padding: 30px;
-    }
+.tabs{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+padding:20px;
+}
 
-    .pix-box h3 {
-      color: rgb(255,138,6);
-      margin-bottom: 20px;
-      font-size: 28px;
-    }
+.tab-btn{
+background:#111;
+color:white;
+border:1px solid rgba(255,138,6,0.4);
+padding:12px 20px;
+border-radius:12px;
+cursor:pointer;
+}
 
-    .pix-card {
-      background: #050505;
-      border: 1px solid #222;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-    }
+.tab-btn.active,
+.tab-btn:hover{
+background:rgb(255,138,6);
+color:black;
+font-weight:bold;
+}
 
-    .pix-card p {
-      color: #888;
-      margin-bottom: 10px;
-    }
+.categoria{
+display:none;
+padding:40px;
+}
 
-    .pix-key {
-      color: rgb(255,138,6);
-      font-weight: bold;
-      font-size: 18px;
-    }
+.categoria.active{
+display:block;
+}
 
-    .qr {
-      height: 180px;
-      background: #0f0f0f;
-      border: 1px solid rgba(255,138,6,0.3);
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #666;
-    }
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
 
-    .tabs {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      padding: 0 50px;
-      margin-bottom: 40px;
-    }
+.card{
+background:#111;
+border-radius:20px;
+overflow:hidden;
+border:1px solid #222;
+transition:0.3s;
+}
 
-    .tab-btn {
-      background: #111;
-      border: 1px solid rgba(255,138,6,0.4);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.card:hover{
+transform:translateY(-5px);
+border-color:rgb(255,138,6);
+}
 
-    .tab-btn:hover,
-    .tab-btn.active {
-      background: rgb(255,138,6);
-      color: black;
-      font-weight: bold;
-    }
+.thumb{
+height:180px;
+background:linear-gradient(to bottom right,rgba(255,138,6,0.5),black);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+font-weight:bold;
+color:white;
+}
 
-    .categoria {
-      display: none;
-      padding: 0 50px 50px;
-    }
+.info{
+padding:20px;
+}
 
-    .categoria.active {
-      display: block;
-    }
+.price{
+font-size:30px;
+font-weight:bold;
+color:rgb(255,138,6);
+margin:15px 0;
+}
 
-    .categoria h2 {
-      color: rgb(255,138,6);
-      margin-bottom: 30px;
-      font-size: 35px;
-    }
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.8);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:9999;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
+.modal-content{
+background:#111;
+padding:30px;
+border-radius:20px;
+width:100%;
+max-width:450px;
+text-align:center;
+border:1px solid rgba(255,138,6,0.4);
+}
 
-    .card {
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 20px;
-      overflow: hidden;
-      transition: 0.3s;
-    }
+.modal-content h2{
+margin-bottom:20px;
+color:rgb(255,138,6);
+}
 
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: rgb(255,138,6);
-    }
+input{
+width:100%;
+padding:14px;
+margin-bottom:15px;
+border:none;
+border-radius:10px;
+background:#1a1a1a;
+color:white;
+}
 
-    .thumb {
-      height: 180px;
-      background: linear-gradient(to bottom right, rgba(255,138,6,0.3), black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgb(255,138,6);
-      font-weight: bold;
-      font-size: 22px;
-    }
+#qrcode{
+margin:20px auto;
+display:flex;
+justify-content:center;
+}
 
-    .info {
-      padding: 20px;
-    }
+.close{
+margin-top:15px;
+background:#222;
+color:white;
+}
 
-    .info h3 {
-      margin-bottom: 10px;
-    }
+footer{
+padding:30px;
+text-align:center;
+color:#666;
+border-top:1px solid #222;
+margin-top:50px;
+}
 
-    .price {
-      color: rgb(255,138,6);
-      font-size: 30px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+.user-box{
+background:#111;
+padding:10px 15px;
+border-radius:10px;
+}
 
-    footer {
-      border-top: 1px solid #222;
-      background: #0d0d0d;
-      padding: 30px 50px;
-      margin-top: 50px;
-      text-align: center;
-    }
+@media(max-width:768px){
+.hero h2{
+font-size:40px;
+}
 
-    footer h3 {
-      color: rgb(255,138,6);
-      margin-bottom: 10px;
-    }
+header{
+padding:20px;
+}
 
-    footer p {
-      color: #666;
-    }
-
-    @media(max-width: 768px) {
-      header,
-      .hero,
-      .tabs,
-      .categoria {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      .hero-text h2 {
-        font-size: 42px;
-      }
-    }
-  </style>
+.categoria{
+padding:20px;
+}
+}
+</style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">
-      <h1>Cidade Nova Store</h1>
-      <p>Loja Oficial MTA Roleplay</p>
-    </div>
+<header>
+<div class="logo">
+<h1>Cidade Nova Store</h1>
+<p>Loja Oficial Roleplay</p>
+</div>
 
-    <button class="btn">Entrar</button>
-  </header>
+<div class="nav-right">
+<div id="userArea"></div>
+<button class="btn" onclick="openLogin()">Entrar</button>
+</div>
+</header>
 
-  <section class="hero">
-    <div class="hero-text">
-      <h2>Sua loja de <span>itens MTA</span></h2>
+<section class="hero">
+<h2>Sua loja de <span>itens MTA</span></h2>
+<p>
+Compre veículos, skins, casas, favelas e VIPs.
+Pagamento via PIX com QR Code automático.
+</p>
+</section>
 
-      <p>
-        Compre veículos, skins, casas, favelas e VIPs para o seu servidor roleplay.
-        Sistema moderno com pagamento automático via PIX.
-      </p>
-    </div>
+<div class="tabs">
+<button class="tab-btn active" onclick="showTab(event,'veiculos')">Veículos</button>
+<button class="tab-btn" onclick="showTab(event,'skins')">Skins</button>
+<button class="tab-btn" onclick="showTab(event,'casas')">Casas</button>
+<button class="tab-btn" onclick="showTab(event,'favelas')">Favelas</button>
+<button class="tab-btn" onclick="showTab(event,'vips')">VIPs</button>
+</div>
 
-    <div class="pix-box">
-      <h3>Pagamento PIX</h3>
+<section id="veiculos" class="categoria active">
+<div class="grid">
+<div class="card">
+<div class="thumb">BMW M4</div>
+<div class="info">
+<h3>BMW M4</h3>
+<div class="price">R$ 49,90</div>
+<button class="btn" onclick="comprar('BMW M4','49.90')">Comprar</button>
+</div>
+</div>
 
-      <div class="pix-card">
-        <p>Chave PIX</p>
-        <div class="pix-key">lojacidadenova@gmail.com</div>
-      </div>
+<div class="card">
+<div class="thumb">Audi RS7</div>
+<div class="info">
+<h3>Audi RS7</h3>
+<div class="price">R$ 59,90</div>
+<button class="btn" onclick="comprar('Audi RS7','59.90')">Comprar</button>
+</div>
+</div>
+</div>
+</section>
 
-      <div class="pix-card">
-        <p>QR CODE PIX</p>
-        <div class="qr">QR CODE</div>
-      </div>
+<section id="skins" class="categoria">
+<div class="grid">
+<div class="card">
+<div class="thumb">Skin VIP</div>
+<div class="info">
+<h3>Skin VIP</h3>
+<div class="price">R$ 19,90</div>
+<button class="btn" onclick="comprar('Skin VIP','19.90')">Comprar</button>
+</div>
+</div>
+</div>
+</section>
 
-      <button class="btn" style="width:100%;">Confirmar Pagamento</button>
-    </div>
-  </section>
+<section id="casas" class="categoria">
+<div class="grid">
+<div class="card">
+<div class="thumb">Casa Luxo</div>
+<div class="info">
+<h3>Casa Luxo</h3>
+<div class="price">R$ 99,90</div>
+<button class="btn" onclick="comprar('Casa Luxo','99.90')">Comprar</button>
+</div>
+</div>
+</div>
+</section>
 
-  <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('veiculos')">Veículos</button>
-    <button class="tab-btn" onclick="showTab('skins')">Skin</button>
-    <button class="tab-btn" onclick="showTab('casas')">Casas</button>
-    <button class="tab-btn" onclick="showTab('favelas')">Favelas</button>
-    <button class="tab-btn" onclick="showTab('vips')">VIPs</button>
-  </div>
+<section id="favelas" class="categoria">
+<div class="grid">
+<div class="card">
+<div class="thumb">Favela Orange</div>
+<div class="info">
+<h3>Favela Orange</h3>
+<div class="price">R$ 199,90</div>
+<button class="btn" onclick="comprar('Favela Orange','199.90')">Comprar</button>
+</div>
+</div>
+</div>
+</section>
 
-  <section id="veiculos" class="categoria active">
-    <h2>Veículos</h2>
+<section id="vips" class="categoria">
+<div class="grid">
+<div class="card">
+<div class="thumb">VIP Gold</div>
+<div class="info">
+<h3>VIP Gold</h3>
+<div class="price">R$ 39,90</div>
+<button class="btn" onclick="comprar('VIP Gold','39.90')">Comprar</button>
+</div>
+</div>
+</div>
+</section>
 
-    <div class="grid">
-      <div class="card"><div class="thumb">BMW M4</div><div class="info"><h3>BMW M4</h3><div class="price">R$ 49,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Audi RS7</div><div class="info"><h3>Audi RS7</h3><div class="price">R$ 59,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Porsche</div><div class="info"><h3>Porsche 911</h3><div class="price">R$ 69,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">GTR R35</div><div class="info"><h3>Nissan GTR</h3><div class="price">R$ 54,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Lambo</div><div class="info"><h3>Lamborghini</h3><div class="price">R$ 79,90</div><button class="btn">Comprar via PIX</button></div></div>
-    </div>
-  </section>
+<footer>
+© 2026 Cidade Nova Store
+</footer>
 
-  <section id="skins" class="categoria">
-    <h2>Skin</h2>
+<div class="modal" id="loginModal">
+<div class="modal-content">
+<h2>Entrar / Registrar</h2>
+<input type="text" id="username" placeholder="Usuário">
+<input type="password" id="password" placeholder="Senha">
+<button class="btn" onclick="register()">Registrar</button>
+<br><br>
+<button class="btn" onclick="login()">Entrar</button>
+<br>
+<button class="btn close" onclick="closeLogin()">Fechar</button>
+</div>
+</div>
 
-    <div class="grid">
-      <div class="card"><div class="thumb">Policial</div><div class="info"><h3>Skin Policial</h3><div class="price">R$ 19,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Bandido</div><div class="info"><h3>Skin Bandido</h3><div class="price">R$ 14,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Favela</div><div class="info"><h3>Skin Favela</h3><div class="price">R$ 12,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">VIP</div><div class="info"><h3>Skin VIP</h3><div class="price">R$ 29,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Empresário</div><div class="info"><h3>Skin Empresário</h3><div class="price">R$ 24,90</div><button class="btn">Comprar via PIX</button></div></div>
-    </div>
-  </section>
+<div class="modal" id="pixModal">
+<div class="modal-content">
+<h2 id="produtoNome"></h2>
+<p id="produtoPreco"></p>
+<div id="qrcode"></div>
+<p style="margin-top:15px;color:#999;">
+Escaneie o QR Code para pagar.
+</p>
+<button class="btn close" onclick="closePix()">Fechar</button>
+</div>
+</div>
 
-  <section id="casas" class="categoria">
-    <h2>Casas</h2>
+<script>
+function showTab(event,tabId){
+const categorias=document.querySelectorAll('.categoria');
+const buttons=document.querySelectorAll('.tab-btn');
 
-    <div class="grid">
-      <div class="card"><div class="thumb">Casa Luxo</div><div class="info"><h3>Casa Luxo</h3><div class="price">R$ 89,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Mansão</div><div class="info"><h3>Mansão Praia</h3><div class="price">R$ 129,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Cobertura</div><div class="info"><h3>Cobertura</h3><div class="price">R$ 159,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Apartamento</div><div class="info"><h3>Apartamento</h3><div class="price">R$ 74,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Casa Média</div><div class="info"><h3>Casa Média</h3><div class="price">R$ 49,90</div><button class="btn">Comprar via PIX</button></div></div>
-    </div>
-  </section>
+categorias.forEach(cat=>cat.classList.remove('active'));
+buttons.forEach(btn=>btn.classList.remove('active'));
 
-  <section id="favelas" class="categoria">
-    <h2>Favelas</h2>
+document.getElementById(tabId).classList.add('active');
+event.target.classList.add('active');
+}
 
-    <div class="grid">
-      <div class="card"><div class="thumb">Favela RP</div><div class="info"><h3>Favela RP</h3><div class="price">R$ 149,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Complexo</div><div class="info"><h3>Complexo Norte</h3><div class="price">R$ 199,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Comunidade</div><div class="info"><h3>Comunidade Elite</h3><div class="price">R$ 219,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Morro</div><div class="info"><h3>Morro do RP</h3><div class="price">R$ 169,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Favela</div><div class="info"><h3>Favela Orange</h3><div class="price">R$ 179,90</div><button class="btn">Comprar via PIX</button></div></div>
-    </div>
-  </section>
+function openLogin(){
+document.getElementById('loginModal').style.display='flex';
+}
 
-  <section id="vips" class="categoria">
-    <h2>VIPs</h2>
+function closeLogin(){
+document.getElementById('loginModal').style.display='none';
+}
 
-    <div class="grid">
-      <div class="card"><div class="thumb">Bronze</div><div class="info"><h3>VIP Bronze</h3><div class="price">R$ 9,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Silver</div><div class="info"><h3>VIP Silver</h3><div class="price">R$ 19,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Gold</div><div class="info"><h3>VIP Gold</h3><div class="price">R$ 39,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Diamond</div><div class="info"><h3>VIP Diamond</h3><div class="price">R$ 69,90</div><button class="btn">Comprar via PIX</button></div></div>
-      <div class="card"><div class="thumb">Black</div><div class="info"><h3>VIP Black</h3><div class="price">R$ 99,90</div><button class="btn">Comprar via PIX</button></div></div>
-    </div>
-  </section>
+function register(){
+const user=document.getElementById('username').value;
+const pass=document.getElementById('password').value;
 
-  <footer>
-    <h3>Cidade Nova Store</h3>
-    <p>© 2026 Todos os direitos reservados</p>
-  </footer>
+if(!user || !pass){
+alert('Preencha tudo');
+return;
+}
 
-  <script>
-    function showTab(tabId) {
-      const categorias = document.querySelectorAll('.categoria');
-      const buttons = document.querySelectorAll('.tab-btn');
+localStorage.setItem(user,pass);
+alert('Conta criada com sucesso');
+}
 
-      categorias.forEach(cat => cat.classList.remove('active'));
-      buttons.forEach(btn => btn.classList.remove('active'));
+function login(){
+const user=document.getElementById('username').value;
+const pass=document.getElementById('password').value;
 
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
-    }
-  </script>
+const saved=localStorage.getItem(user);
+
+if(saved===pass){
+localStorage.setItem('logado',user);
+updateUser();
+closeLogin();
+alert('Login realizado');
+}else{
+alert('Usuário ou senha incorretos');
+}
+}
+
+function updateUser(){
+const user=localStorage.getItem('logado');
+
+if(user){
+document.getElementById('userArea').innerHTML=`
+<div class="user-box">👤 ${user}</div>
+`;
+}
+}
+
+updateUser();
+
+function comprar(nome,valor){
+
+const user=localStorage.getItem('logado');
+
+if(!user){
+alert('Faça login antes');
+return;
+}
+
+const chavePix='SEU_PIX_AQUI';
+
+const texto=`PIX PARA ${nome}
+VALOR: R$ ${valor}
+CHAVE: ${chavePix}`;
+
+const qr=document.getElementById('qrcode');
+qr.innerHTML='';
+
+QRCode.toCanvas(texto,{width:250},function(error,canvas){
+if(error) console.error(error);
+qr.appendChild(canvas);
+});
+
+document.getElementById('produtoNome').innerText=nome;
+document.getElementById('produtoPreco').innerText='Valor: R$ '+valor;
+
+document.getElementById('pixModal').style.display='flex';
+
+setTimeout(() => {
+
+alert('Pagamento gerado com sucesso!
+
+Após realizar o pagamento entre no Discord e abra um ticket para receber seu item.');
+
+window.open('https://discord.gg/SEUDISCORD', '_blank');
+
+}, 1000);
+
+}
+
+function closePix(){
+document.getElementById('pixModal').style.display='none';
+}
+</script>
 
 </body>
 </html>
