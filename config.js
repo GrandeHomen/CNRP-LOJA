@@ -36,13 +36,13 @@ window.CONFIG = {
   // ---------- DISCORD ----------
   discord: {
     label: 'Entrar',
-    url: 'https://discord.gg/SEU-CODIGO-AQUI',  // ← COLE SEU LINK
+    url: 'https://discord.gg/ZShDd4Yqkt',  // ← COLE SEU LINK
   },
 
   // ---------- ESTATÍSTICAS ----------
   stats: [
-    { value: '12K+', label: 'Jogadores' },
-    { value: '45K+', label: 'Vendas' },
+    { value: '1.000+', label: 'Jogadores' },
+    { value: '50+', label: 'Vendas' },
     { value: '4.9★', label: 'Avaliação' },
   ],
 
